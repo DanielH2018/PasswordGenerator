@@ -1,9 +1,12 @@
 import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentEvent;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -36,7 +39,8 @@ public final class PasswordGeneratorView1 extends JFrame
             COLUMNS_IN_BUTTON_PANEL_GRID = 2, ROWS_IN_THIS_GRID = 3,
             COLUMNS_IN_THIS_GRID = 1, MIN_PASSWORD_LENGTH = 5,
             MAX_PASSWORD_LENGTH = 30, LOWEST_VALID_CHARACTER = 33,
-            HIGHEST_VALID_CHARACTER = 126;
+            HIGHEST_VALID_CHARACTER = 126, BUTTON_TEXT_SCALAR = 25,
+            SLIDER_TEXT_SCALAR = 50;
 
     /**
      * Password Length Value.
@@ -125,6 +129,7 @@ public final class PasswordGeneratorView1 extends JFrame
         this.generateButton.addActionListener(this);
         this.copyButton.addActionListener(this);
         this.lengthSlider.addChangeListener(this);
+        this.addComponentListener(this);
 
         // Start the main application window --------------------------------
 
@@ -133,6 +138,13 @@ public final class PasswordGeneratorView1 extends JFrame
          * it, that it exits this program when closed, and that it becomes
          * visible to the user now
          */
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = screenSize.width / 2;
+        int height = screenSize.height / 4;
+        this.setPreferredSize(new Dimension(width, height));
+        int widthCenter = (screenSize.width / 2) - (width / 2);
+        int heightCenter = (screenSize.height / 2) - (height / 2);
+        this.setLocation(widthCenter, heightCenter);
         this.pack();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -227,5 +239,37 @@ public final class PasswordGeneratorView1 extends JFrame
             //Set Password Length to adjusted value
             this.passwordLength = slider.getValue();
         }
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        int width = this.getWidth();
+        this.copyButton.setFont(
+                new Font("Arial", Font.PLAIN, width / BUTTON_TEXT_SCALAR));
+        this.generateButton.setFont(
+                new Font("Arial", Font.PLAIN, width / BUTTON_TEXT_SCALAR));
+        this.lengthSlider.setFont(
+                new Font("Arial", Font.PLAIN, width / SLIDER_TEXT_SCALAR));
+        this.outputText.setFont(
+                new Font("Arial", Font.PLAIN, width / BUTTON_TEXT_SCALAR));
+        this.getContentPane().revalidate();
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+        // TODO Auto-generated method stub
+
     }
 }

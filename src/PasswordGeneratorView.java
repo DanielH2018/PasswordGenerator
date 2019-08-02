@@ -1,4 +1,5 @@
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 
 import javax.swing.event.ChangeListener;
 
@@ -7,7 +8,8 @@ import javax.swing.event.ChangeListener;
  *
  * @author Daniel Hunter
  */
-public interface PasswordGeneratorView extends ActionListener, ChangeListener {
+public interface PasswordGeneratorView
+        extends ActionListener, ChangeListener, ComponentListener {
 
     /**
      * Register argument as observer/listener of this; this must be done first,
