@@ -226,7 +226,6 @@ public final class PasswordGeneratorView1 extends JFrame
         if (!slider.getValueIsAdjusting()) {
             //Set Password Length to adjusted value
             this.passwordLength = slider.getValue();
-            System.out.println("Here");
         }
     }
 }
